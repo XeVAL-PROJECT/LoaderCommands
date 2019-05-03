@@ -4,7 +4,7 @@
 * ```npm i require-all --save```
 
 ## Script
-* ```Его кинуть в index.js```
+* Его кинуть в index.js
 
 ```
 const requireAll = require('require-all');
