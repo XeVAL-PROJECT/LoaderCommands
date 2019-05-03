@@ -1,21 +1,27 @@
 # LoaderCommands
 
-## Install require-all
-* ```npm i require-all --save```
+## Установка"
+* ```npm install require-all --save```
 
-## Script
-* Его кинуть в index.js
+Затем, нужно добавить библиотеку `require-all` в загрузку.
+* ```const requireAll = require('require-all');```
 
-```
+Далее - создаем поле `commands` боту, делается это просто:
+* ```bot.commands = {};```
+
+Отлично, теперь нужно добавить содержимое `app.js` после добавления.
+
+После этого все будет выглядить примерно так:
+
+```js
 const requireAll = require('require-all');
+const discord = require('discord.js');
+const bot = new discord.Client();
+bot.commands = {};
 
-let commands = requireAll({ dirname: `${__dirname}/COMMANDS/` });
+// Загружает все комманды из папки "commands".
+let commands = requireAll({ dirname: `${__dirname}/commands` });
 
-for (const f in commands) bot.commands.set(f, commands[f]);
-for (const dir in commands) {
-    for (const f in commands[dir]) {
-        bot.commands.set(f, commands[dir][f]);
-        console.log(`Папка команд ${dir} загружена ${f}`);
-    }
-}
+// Ну и дальше там остальной код.
+// Ваш в том числе.
 ```

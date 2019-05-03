@@ -1,11 +1,17 @@
 const requireAll = require('require-all');
 
-let commands = requireAll({ dirname: `${__dirname}/COMMANDS/` }); // подключает папку COMMANDS
+// Загружает все комманды из папки "commands".
+let commands = requireAll({ dirname: `${__dirname}/commands` });
 
-for (const f in commands) bot.commands.set(f, commands[f]);
-for (const dir in commands) { // Циклом пепеберает папку COMMANDS
-    for (const f in commands[dir]) { // Циклом переберает папки с командами в папке COMMANDS
-        bot.commands.set(f, commands[dir][f]); // Загрузка команд
-        console.log(`Папка команд ${dir} загружена ${f}`);
-    }
+// Добавляем команды боту.
+for (const f in commands) {
+  bot.commands.set(f, commands[f]);
+}
+
+// Перебираем все модули в директории "commands".
+for (const dir in commands) {
+  for (const f in commands[dir]) {
+    bot.commands.set(f, commands[dir][f]);
+    console.log(`Команда ${f} из модуля ${dir} была загружена.`);
+  }
 }
